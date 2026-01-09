@@ -47,3 +47,11 @@ export async function retrieveAllComments(postId) {
   );
   return rows;
 }
+
+export async function createComment(postId, userId, content) {
+  const { rows } = await pool.query(
+    "INSERT INTO comments (post_id, user_id, content) VALUES ($1, $2, $3) RETURNING id, post_id, user_id, content",
+    [postId, userId, content]
+  );
+  return rows[0];
+}

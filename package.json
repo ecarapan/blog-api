@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch src/app.js",
     "populate-db": "node src/db/populatedb.js"
   },
   "repository": {

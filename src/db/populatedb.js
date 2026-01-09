@@ -31,7 +31,7 @@ async function populate() {
         id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
         user_id INTEGER REFERENCES users(id),
-        comment TEXT NOT NULL,
+        content TEXT NOT NULL,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
