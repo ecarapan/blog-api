@@ -1,0 +1,29 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.homePage nav {
+  background-color: lightblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.loginButton {
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.homePage main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  padding: 20px;
+}
