@@ -11,7 +11,7 @@ export function Comment({ userId, content, date }) {
   return (
     <article className={styles.comment}>
       <div className={styles.info}>
-        <Link to={`/users/${user.id}`} className={styles.navPostButton}>
+        <Link to={`/users/${user.id}`} className={styles.commentToUserBtn}>
           {user.name}
         </Link>
         <p>{content}</p>

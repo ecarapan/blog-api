@@ -1,4 +1,7 @@
-import { retrieveUser } from "../db/queries/usersQueries.js";
+import {
+  retrieveUser,
+  retrieveAllUserPosts,
+} from "../db/queries/usersQueries.js";
 
 export async function getUser(req, res) {
   try {
@@ -10,5 +13,15 @@ export async function getUser(req, res) {
     res.json(user);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch posts" });
+  }
+}
+
+export async function getAllUserPosts(req, res) {
+  try {
+    const userId = Number(req.params.userId);
+    const posts = await retrieveAllUserPosts(userId);
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch user's posts" });
   }
 }

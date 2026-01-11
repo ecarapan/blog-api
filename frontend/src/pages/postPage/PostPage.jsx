@@ -3,6 +3,7 @@ import { Comment } from "@/pages/postPage/comment/Comment.jsx";
 import { usePostPage } from "@/pages/postPage/usePostPage";
 import { useUser } from "@/hooks/useUser.js";
 import { formatDate } from "@/util/formatDate";
+import { Link } from "react-router";
 
 export function PostPage() {
   const {
@@ -15,24 +16,22 @@ export function PostPage() {
   } = usePostPage();
   const { user } = useUser(post?.user_id);
 
-  if (postError) {
+  if (postError || commentsError) {
     return (
       <div className={`${styles.homePage} ${styles.loading}`}>
         <h1 role="alert" aria-live="assertive" className={styles.errorSpinner}>
-          {postError}
+          {postError || commentsError}
         </h1>
       </div>
     );
   }
 
-  if (postLoading) {
+  if (postLoading || commentsLoading) {
     return (
       <div className={`${styles.homePage} ${styles.loading}`}>
-        <div
-          role="status"
-          aria-live="polite"
-          className={styles.loadingSpinner}
-        ></div>
+        <div role="status" aria-live="polite" className={styles.loadingSpinner}>
+          Loading...
+        </div>
       </div>
     );
   }
@@ -42,7 +41,9 @@ export function PostPage() {
       <main>
         <h1>{post.title}</h1>
         <p>{formatDate(post.date)}</p>
-        <p>{user?.name}</p>
+        <Link to={`/users/${user?.id}`} className={styles.postToUserBtn}>
+          {user?.name}
+        </Link>
         <p>{post.content}</p>
       </main>
       <section aria-label="Comments">

@@ -7,6 +7,13 @@ export async function retrieveUser(userId) {
   return rows[0];
 }
 
+export async function retrieveAllUserPosts(userId) {
+  const { rows } = await pool.query("SELECT * FROM posts WHERE user_id = $1", [
+    userId,
+  ]);
+  return rows;
+}
+
 export async function retrieveUserByEmail(email) {
   const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
     email,

@@ -4,19 +4,19 @@ import { usePosts } from "@/hooks/usePosts.js";
 import { Link } from "react-router";
 
 export function HomePage() {
-  const { postsList, loading, error } = usePosts();
+  const { postsList, postsLoading, postsError } = usePosts();
 
-  if (error) {
+  if (postsError) {
     return (
       <div className={`${styles.homePage} ${styles.loading}`}>
         <h1 role="alert" aria-live="assertive" className={styles.errorSpinner}>
-          {error}
+          {postsError}
         </h1>
       </div>
     );
   }
 
-  if (loading) {
+  if (postsLoading) {
     return (
       <div className={`${styles.homePage} ${styles.loading}`}>
         <div
