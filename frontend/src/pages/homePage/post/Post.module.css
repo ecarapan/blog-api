@@ -12,5 +12,7 @@
   flex-direction: column;
 }
 
-.navPostButton {
+.postToPageBtn {
+  color: yellow;
+  text-decoration: none;
 }

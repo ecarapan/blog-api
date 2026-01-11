@@ -1,22 +1,27 @@
 import styles from "@/pages/postPage/comment/Comment.module.css";
 import { Link } from "react-router";
-import { useUser } from "@/hooks/useUser.js";
+import { useFetch } from "@/hooks/useFetch";
 
 export function Comment({ userId, content, date }) {
-  const { user, userLoading, userError } = useUser(userId);
-
-  if (userLoading) return <div>Loading user...</div>;
-  if (userError) return <div>{userError}</div>;
+  const {
+    data: user,
+    loading: userLoading,
+    error: userError,
+  } = useFetch(`http://localhost:3000/users/${userId}`);
 
   return (
     <article className={styles.comment}>
-      <div className={styles.info}>
-        <Link to={`/users/${user.id}`} className={styles.commentToUserBtn}>
-          {user.name}
-        </Link>
-        <p>{content}</p>
-        <p>{date}</p>
-      </div>
+      {userLoading && <div className={styles.loadingSpinner}></div>}
+      {userError && <div className={styles.errorSpinner}>{userError}</div>}
+      {user && (
+        <>
+          <Link to={`/users/${user.id}`} className={styles.commentToUserBtn}>
+            {user.name}
+          </Link>
+          <p>{content}</p>
+          <p>{date}</p>
+        </>
+      )}
     </article>
   );
 }
