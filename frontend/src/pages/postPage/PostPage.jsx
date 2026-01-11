@@ -1,68 +1,19 @@
 import styles from "@/pages/postPage/PostPage.module.css";
-import { useParams } from "react-router";
-import { useState, useEffect } from "react";
 import { Comment } from "@/pages/postPage/comment/Comment.jsx";
+import { usePostPage } from "@/pages/postPage/usePostPage";
 import { useUser } from "@/hooks/useUser.js";
+import { formatDate } from "@/util/formatDate";
 
 export function PostPage() {
-  const { postId } = useParams();
-
-  const [post, setPost] = useState(null);
-  const [postLoading, setPostLoading] = useState(true);
-  const [postError, setPostError] = useState(null);
-
-  const [commentsList, setCommentsList] = useState([]);
-  const [commentsLoading, setCommentsLoading] = useState(true);
-  const [commentsError, setCommentsError] = useState(null);
-
+  const {
+    post,
+    postLoading,
+    postError,
+    commentsList,
+    commentsLoading,
+    commentsError,
+  } = usePostPage();
   const { user } = useUser(post?.user_id);
-
-  useEffect(() => {
-    async function fetchPost() {
-      try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`);
-        const postData = await response.json();
-        setPost(postData);
-        setPostLoading(false);
-      } catch (err) {
-        setPostError(err.message || "Error fetching posts");
-        setPostLoading(false);
-      }
-    }
-
-    fetchPost();
-  }, [postId]);
-
-  useEffect(() => {
-    if (!post) {
-      return;
-    }
-
-    async function fetchComments() {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/posts/${post.id}/comments`
-        );
-        const commentsData = await response.json();
-        setCommentsList(commentsData);
-        setCommentsLoading(false);
-      } catch (err) {
-        setCommentsError(err.message || "Error fetching posts");
-        setCommentsLoading(false);
-      }
-    }
-
-    fetchComments();
-  }, [post]);
-
-  function formatDate(dateString) {
-    const d = new Date(dateString);
-    return d.toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  }
 
   if (postError) {
     return (
@@ -91,7 +42,7 @@ export function PostPage() {
       <main>
         <h1>{post.title}</h1>
         <p>{formatDate(post.date)}</p>
-        <p>{user.name}</p>
+        <p>{user?.name}</p>
         <p>{post.content}</p>
       </main>
       <section aria-label="Comments">

@@ -6,6 +6,10 @@ export function useUser(userId) {
   const [userError, setUserError] = useState(null);
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+
     async function fetchUser() {
       try {
         const response = await fetch(`http://localhost:3000/users/${userId}`);
