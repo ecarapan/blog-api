@@ -20,7 +20,7 @@ async function populate() {
         id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         title VARCHAR(200) NOT NULL,
         content TEXT NOT NULL,
-        author_id INTEGER REFERENCES users(id),
+        user_id INTEGER REFERENCES users(id),
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         is_posted BOOLEAN DEFAULT false
       )

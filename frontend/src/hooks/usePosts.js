@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 export function usePosts() {
   const [postsList, setPostsList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [postsLoading, setPostsLoading] = useState(true);
+  const [postsError, setPostsError] = useState(null);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -11,15 +11,15 @@ export function usePosts() {
         const response = await fetch("http://localhost:3000/posts");
         const postsData = await response.json();
         setPostsList(postsData);
-        setLoading(false);
+        setPostsLoading(false);
       } catch (err) {
-        setError(err.message || "Error fetching posts");
-        setLoading(false);
+        setPostsError(err.message || "Error fetching posts");
+        setPostsLoading(false);
       }
     }
 
     fetchPosts();
   }, []);
 
-  return { postsList, loading, error };
+  return { postsList, postsLoading, postsError };
 }

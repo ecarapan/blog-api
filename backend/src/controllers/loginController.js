@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { retrieveUserByEmail } from "../db/queries.js";
+import { retrieveUserByEmail } from "../db/queries/usersQueries.js";
 import bcrypt from "bcryptjs";
 
 export async function login(req, res) {

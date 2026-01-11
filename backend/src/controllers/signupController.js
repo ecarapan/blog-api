@@ -1,4 +1,4 @@
-import { createUser } from "../db/queries.js";
+import { createUser } from "../db/queries/usersQueries.js";
 import bcrypt from "bcryptjs";
 
 export async function signup(req, res) {

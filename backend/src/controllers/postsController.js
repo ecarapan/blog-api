@@ -2,9 +2,11 @@ import {
   retrieveAllPosts,
   retrievePost,
   createPost,
+} from "../db/queries/postsQueries.js";
+import {
   retrieveAllComments,
   createComment,
-} from "../db/queries.js";
+} from "../db/queries/commentsQueries.js";
 
 export async function getAllPosts(req, res) {
   try {

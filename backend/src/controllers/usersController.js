@@ -1,4 +1,4 @@
-import { retrieveUser } from "../db/queries.js";
+import { retrieveUser } from "../db/queries/usersQueries.js";
 
 export async function getUser(req, res) {
   try {
