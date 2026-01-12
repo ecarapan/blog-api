@@ -3,18 +3,20 @@ import { useParams } from "react-router";
 import { Post } from "@/pages/homePage/post/Post.jsx";
 import { useFetch } from "@/hooks/useFetch";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export function UserPage() {
   const { userId } = useParams();
   const {
     data: userPostsList,
     loading: userPostsLoading,
     error: userPostsError,
-  } = useFetch(`http://localhost:3000/users/${userId}/posts`);
+  } = useFetch(`${API_BASE}/users/${userId}/posts`);
   const {
     data: user,
     loading: userLoading,
     error: userError,
-  } = useFetch(`http://localhost:3000/users/${userId}`);
+  } = useFetch(`${API_BASE}/users/${userId}`);
 
   return (
     <div className={styles.userPage}>

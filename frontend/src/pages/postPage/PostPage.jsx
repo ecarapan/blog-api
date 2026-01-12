@@ -5,25 +5,25 @@ import { Link } from "react-router";
 import { useParams } from "react-router";
 import { useFetch } from "@/hooks/useFetch";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export function PostPage() {
   const { postId } = useParams();
   const {
     data: post,
     loading: postLoading,
     error: postError,
-  } = useFetch(postId ? `http://localhost:3000/posts/${postId}` : null);
+  } = useFetch(postId ? `${API_BASE}/posts/${postId}` : null);
   const {
     data: commentsList,
     loading: commentsLoading,
     error: commentsError,
-  } = useFetch(
-    postId ? `http://localhost:3000/posts/${postId}/comments` : null
-  );
+  } = useFetch(postId ? `${API_BASE}/posts/${postId}/comments` : null);
   const {
     data: user,
     loading: userLoading,
     error: userError,
-  } = useFetch(post ? `http://localhost:3000/users/${post.user_id}` : null);
+  } = useFetch(post ? `${API_BASE}/users/${post.user_id}` : null);
 
   return (
     <div className={styles.postPage}>

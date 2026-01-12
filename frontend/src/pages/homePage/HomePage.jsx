@@ -2,12 +2,14 @@ import styles from "@/pages/homePage/HomePage.module.css";
 import { Post } from "@/pages/homePage/post/Post.jsx";
 import { useFetch } from "@/hooks/useFetch";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export function HomePage() {
   const {
     data: postsList,
     loading: postsLoading,
     error: postsError,
-  } = useFetch("http://localhost:3000/posts");
+  } = useFetch(`${API_BASE}/posts`);
 
   return (
     <div className={styles.homePage}>

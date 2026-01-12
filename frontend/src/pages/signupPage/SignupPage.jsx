@@ -2,6 +2,8 @@ import styles from "@/pages/signupPage/SignupPage.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export function SignupPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ export function SignupPage() {
     const password = formData.get("password");
 
     try {
-      const res = await fetch("http://localhost:3000/signup", {
+      const res = await fetch(`${API_BASE}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
