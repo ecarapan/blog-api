@@ -3,8 +3,8 @@ import { ErrorPage } from "@/pages/errorPage/ErrorPage.jsx";
 import { HomePage } from "@/pages/homePage/HomePage.jsx";
 import { PostPage } from "@/pages/postPage/PostPage.jsx";
 import { UserPage } from "@/pages/userPage/UserPage.jsx";
-// import { SignupPage } from "@/pages/signupPage/SignupPage.jsx";
-// import { LoginPage } from "@/pages/loginPage/LoginPage.jsx";
+import { SignupPage } from "@/pages/signupPage/SignupPage.jsx";
+import { LoginPage } from "@/pages/loginPage/LoginPage.jsx";
 
 export const routes = [
   {
@@ -28,14 +28,14 @@ export const routes = [
         path: "users/:userId",
         element: <UserPage />,
       },
-      // {
-      //   path: "signup",
-      //   element: <SignupPage />,
-      // },
-      // {
-      //   path: "login",
-      //   element: <LoginPage />,
-      // },
+      {
+        path: "signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
     ],
   },
 ];

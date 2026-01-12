@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
 import { retrieveUserByEmail } from "../db/queries/usersQueries.js";
 import bcrypt from "bcryptjs";
+import { matchedData } from "express-validator";
 
 export async function login(req, res) {
-  const { email, password } = req.body;
+  const { email, password } = matchedData(req);
   try {
     const user = await retrieveUserByEmail(email);
     if (!user) {

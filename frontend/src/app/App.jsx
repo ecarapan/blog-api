@@ -1,11 +1,15 @@
 import styles from "./App.module.css";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { Navbar } from "@/app/navbar/Navbar.jsx";
 
 export function App() {
+  const location = useLocation();
+  const hideNavbar =
+    location.pathname === "/login" || location.pathname === "/signup";
+
   return (
     <div className={styles.app}>
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <Outlet />
     </div>
   );

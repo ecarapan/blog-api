@@ -1,8 +1,9 @@
 import { createUser } from "../db/queries/usersQueries.js";
 import bcrypt from "bcryptjs";
+import { matchedData } from "express-validator";
 
 export async function signup(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password } = matchedData(req);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await createUser(name, email, hashedPassword);
