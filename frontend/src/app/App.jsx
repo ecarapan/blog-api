@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 import { Outlet, useLocation } from "react-router";
-import { Navbar } from "@/app/navbar/Navbar.jsx";
+import { Navbar } from "@/components/navbar/Navbar.jsx";
 
 export function App() {
   const location = useLocation();

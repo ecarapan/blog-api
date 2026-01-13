@@ -7,6 +7,7 @@ import {
   retrieveAllComments,
   createComment,
 } from "../db/queries/commentsQueries.js";
+import { matchedData } from "express-validator";
 
 export async function getAllPosts(req, res) {
   try {
@@ -31,13 +32,13 @@ export async function getPost(req, res) {
 }
 
 export async function addPost(req, res) {
-  const { title, content } = req.body;
+  const { title, content, isPosted } = req.body;
   const userId = req.user.id;
   if (!userId) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
-    const post = await createPost(title, content, userId);
+    const post = await createPost(title, content, isPosted, userId);
     res.status(201).json({ message: "Post created", post });
   } catch (err) {
     res.status(500).json({ error: "Failed to create post" });
@@ -55,7 +56,7 @@ export async function getAllComments(req, res) {
 }
 
 export async function addComment(req, res) {
-  const { content } = req.body;
+  const { content } = matchedData(req);
   const postId = Number(req.params.postId);
   const userId = req.user.id;
   if (!userId) {

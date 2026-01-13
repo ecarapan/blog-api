@@ -7,6 +7,10 @@ import {
   getAllComments,
   addComment,
 } from "../controllers/postsController.js";
+import {
+  createPostValidationRules,
+  validate,
+} from "../middleware/creatPostValidation.js";
 
 export const postsRouter = Router();
 
@@ -15,4 +19,10 @@ postsRouter.get("/:postId", getPost);
 postsRouter.post("/", verifyToken, addPost);
 
 postsRouter.get("/:postId/comments", getAllComments);
-postsRouter.post("/:postId/comments", verifyToken, addComment);
+postsRouter.post(
+  "/:postId/comments",
+  verifyToken,
+  createPostValidationRules,
+  validate,
+  addComment
+);

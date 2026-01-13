@@ -8,12 +8,12 @@ export async function login(req, res) {
   try {
     const user = await retrieveUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "No user with that email" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "Incorrect password" });
     }
 
     const token = jwt.sign(

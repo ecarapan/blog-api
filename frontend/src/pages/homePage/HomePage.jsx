@@ -10,14 +10,17 @@ export function HomePage() {
     loading: postsLoading,
     error: postsError,
   } = useFetch(`${API_BASE}/posts`);
+  const publishedPostsList = (postsList ?? []).filter(
+    (post) => post?.is_posted
+  );
 
   return (
     <div className={styles.homePage}>
       <main>
         {postsLoading && <div className={styles.loadingSpinner}></div>}
         {postsError && <h2 className={styles.errorSpinner}>{postsError}</h2>}
-        {postsList &&
-          postsList.map((post) => (
+        {publishedPostsList &&
+          publishedPostsList.map((post) => (
             <Post
               key={post.id}
               id={post.id}

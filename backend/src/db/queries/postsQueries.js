@@ -12,10 +12,10 @@ export async function retrievePost(postId) {
   return rows[0];
 }
 
-export async function createPost(title, content, userId) {
+export async function createPost(title, content, isPosted, userId) {
   const { rows } = await pool.query(
-    "INSERT INTO posts (title, content, user_id) VALUES ($1, $2, $3) RETURNING id, title, content, user_id",
-    [title, content, userId]
+    "INSERT INTO posts (title, content, is_posted, user_id) VALUES ($1, $2, $3, $4) RETURNING id, title, content, is_posted, user_id",
+    [title, content, isPosted, userId]
   );
   return rows[0];
 }
