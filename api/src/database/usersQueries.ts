@@ -1,6 +1,6 @@
 import { db } from "./setup/database.js";
 
-export async function retrieveUser(userId: number) {
+export async function getUserQuery(userId: number) {
   return await db
     .selectFrom("users")
     .selectAll()
@@ -8,7 +8,7 @@ export async function retrieveUser(userId: number) {
     .executeTakeFirst();
 }
 
-export async function retrieveAllUserPosts(userId: number) {
+export async function getUserPostsQuery(userId: number) {
   return await db
     .selectFrom("posts")
     .selectAll()
@@ -16,7 +16,7 @@ export async function retrieveAllUserPosts(userId: number) {
     .execute();
 }
 
-export async function retrieveUserByEmail(email: string) {
+export async function getUserByEmailQuery(email: string) {
   return await db
     .selectFrom("users")
     .selectAll()
@@ -24,7 +24,7 @@ export async function retrieveUserByEmail(email: string) {
     .executeTakeFirst();
 }
 
-export async function createUser(
+export async function createUserQuery(
   name: string,
   email: string,
   hashedPassword: string

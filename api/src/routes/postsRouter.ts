@@ -1,11 +1,10 @@
 import { Router } from "express";
 import { verifyToken } from "../middleware/verifyToken.js";
 import {
-  getAllPosts,
+  getPosts,
+  getDrafts,
   getPost,
-  addPost,
-  getAllComments,
-  addComment,
+  createPost,
 } from "../controllers/postsController.js";
 import {
   createPostValidationRules,
@@ -14,15 +13,13 @@ import {
 
 export const postsRouter = Router();
 
-postsRouter.get("/", getAllPosts);
-postsRouter.get("/:postId", getPost);
-postsRouter.post("/", verifyToken, addPost);
-
-postsRouter.get("/:postId/comments", getAllComments);
+postsRouter.get("/posts", getPosts);
+postsRouter.get("/posts/:postId", getPost);
 postsRouter.post(
-  "/:postId/comments",
+  "/posts",
   verifyToken,
   createPostValidationRules,
   validate,
-  addComment
+  createPost
 );
+postsRouter.get("posts/drafts", getDrafts);

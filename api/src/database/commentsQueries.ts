@@ -1,6 +1,6 @@
 import { db } from "./setup/database.js";
 
-export async function retrieveAllComments(postId: number) {
+export async function getCommentsQuery(postId: number) {
   return await db
     .selectFrom("comments")
     .selectAll()
@@ -8,7 +8,7 @@ export async function retrieveAllComments(postId: number) {
     .execute();
 }
 
-export async function createComment(
+export async function createCommentQuery(
   postId: number,
   userId: number,
   content: string

@@ -1,11 +1,11 @@
-import { App } from "@/app/App.jsx";
-import { ErrorPage } from "@/pages/errorPage/ErrorPage.jsx";
-import { HomePage } from "@/pages/homePage/HomePage.jsx";
-import { CreatePostPage } from "@/pages/createPostPage/CreatePostPage";
-import { PostPage } from "@/pages/postPage/PostPage.jsx";
-import { UserPage } from "@/pages/userPage/UserPage.jsx";
-import { SignupPage } from "@/pages/signupPage/SignupPage.jsx";
-import { LoginPage } from "@/pages/loginPage/LoginPage.jsx";
+import { App } from "@/app/App.tsx";
+import { ErrorPage } from "@/pages/errorPage/ErrorPage.tsx";
+import { HomePage } from "@/pages/homePage/HomePage.tsx";
+import { CreatePostPage } from "@/pages/createPostPage/CreatePostPage.tsx";
+import { PostPage } from "@/pages/postPage/PostPage.tsx";
+import { UserPage } from "@/pages/userPage/UserPage.tsx";
+import { SignupPage } from "@/pages/signupPage/SignupPage.tsx";
+import { LoginPage } from "@/pages/loginPage/LoginPage.tsx";
 
 export const routes = [
   {

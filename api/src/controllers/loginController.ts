@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { retrieveUserByEmail } from "../database/usersQueries.js";
+import { getUserByEmailQuery } from "../database/usersQueries.js";
 import bcrypt from "bcryptjs";
 import { matchedData } from "express-validator";
 
 export async function login(req: Request, res: Response) {
   const { email, password } = matchedData(req);
   try {
-    const user = await retrieveUserByEmail(email);
+    const user = await getUserByEmailQuery(email);
     if (!user) {
       return res.status(401).json({ error: "No user with that email" });
     }

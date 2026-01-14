@@ -2,12 +2,8 @@ import type { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 
 export const signupValidationRules = [
-  body("name")
-    .trim()
-    .escape()
-    .isLength({ min: 1 })
-    .withMessage("Name is required."),
-  body("email").trim().escape().isEmail().withMessage("Email must be valid."),
+  body("name").trim().isLength({ min: 1 }).withMessage("Name is required."),
+  body("email").trim().isEmail().withMessage("Email must be valid."),
   body("password")
     .isString()
     .trim()
