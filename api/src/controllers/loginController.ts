@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { retrieveUserByEmail } from "../db/queries/usersQueries.js";
+import { retrieveUserByEmail } from "../database/usersQueries.js";
 import bcrypt from "bcryptjs";
 import { matchedData } from "express-validator";
 

@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { retrieveUserByEmail } from "../db/queries/usersQueries.js";
 import bcrypt from "bcryptjs";
@@ -14,11 +13,16 @@ export async function login(req, res) {
         if (!isMatch) {
             return res.status(401).json({ error: "Incorrect password" });
         }
-        const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "30d" });
+        const jwtSecret = process.env["JWT_SECRET"];
+        if (!jwtSecret) {
+            throw new Error("JWT_SECRET is not defined in environment variables");
+        }
+        const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, jwtSecret, { expiresIn: "30d" });
         res.json({ message: "Login successful", token });
     }
     catch (err) {
         res.status(500).json({ error: "Login failed" });
     }
+    return;
 }
 //# sourceMappingURL=loginController.js.map

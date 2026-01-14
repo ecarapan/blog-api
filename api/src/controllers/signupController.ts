@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createUser } from "../db/queries/usersQueries.js";
+import { createUser } from "../database/usersQueries.js";
 import bcrypt from "bcryptjs";
 import { matchedData } from "express-validator";
 

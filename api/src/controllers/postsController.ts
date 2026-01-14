@@ -3,11 +3,11 @@ import {
   retrieveAllPosts,
   retrievePost,
   createPost,
-} from "../db/queries/postsQueries.js";
+} from "../database/postsQueries.js";
 import {
   retrieveAllComments,
   createComment,
-} from "../db/queries/commentsQueries.js";
+} from "../database/commentsQueries.js";
 import { matchedData } from "express-validator";
 
 export async function getAllPosts(_req: Request, res: Response) {
@@ -15,6 +15,7 @@ export async function getAllPosts(_req: Request, res: Response) {
     const posts = await retrieveAllPosts();
     res.json(posts);
   } catch (err) {
+    console.error("Error in getAllPosts:", err);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 }

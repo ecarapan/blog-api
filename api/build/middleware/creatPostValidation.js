@@ -19,5 +19,6 @@ export function validate(req, res, next) {
         return res.status(400).json({ errors: errors.array() });
     }
     next();
+    return;
 }
 //# sourceMappingURL=creatPostValidation.js.map

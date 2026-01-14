@@ -1,7 +1,7 @@
 import { retrieveUser, retrieveAllUserPosts, } from "../db/queries/usersQueries.js";
 export async function getUser(req, res) {
     try {
-        const userId = Number(req.params.userId);
+        const userId = Number(req.params["userId"]);
         const user = await retrieveUser(userId);
         if (!user) {
             return res.status(404).json({ error: "Post not found" });
@@ -11,15 +11,17 @@ export async function getUser(req, res) {
     catch (err) {
         res.status(500).json({ error: "Failed to fetch posts" });
     }
+    return;
 }
 export async function getAllUserPosts(req, res) {
     try {
-        const userId = Number(req.params.userId);
+        const userId = Number(req.params["userId"]);
         const posts = await retrieveAllUserPosts(userId);
         res.json(posts);
     }
     catch (err) {
         res.status(500).json({ error: "Failed to fetch user's posts" });
     }
+    return;
 }
 //# sourceMappingURL=usersController.js.map

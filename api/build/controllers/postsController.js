@@ -1,7 +1,7 @@
 import { retrieveAllPosts, retrievePost, createPost, } from "../db/queries/postsQueries.js";
 import { retrieveAllComments, createComment, } from "../db/queries/commentsQueries.js";
 import { matchedData } from "express-validator";
-export async function getAllPosts(req, res) {
+export async function getAllPosts(_req, res) {
     try {
         const posts = await retrieveAllPosts();
         res.json(posts);
@@ -12,7 +12,7 @@ export async function getAllPosts(req, res) {
 }
 export async function getPost(req, res) {
     try {
-        const postId = Number(req.params.postId);
+        const postId = Number(req.params["postId"]);
         const post = await retrievePost(postId);
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
@@ -22,10 +22,11 @@ export async function getPost(req, res) {
     catch (err) {
         res.status(500).json({ error: "Failed to fetch post" });
     }
+    return;
 }
 export async function addPost(req, res) {
     const { title, content, isPosted } = req.body;
-    const userId = req.user.id;
+    const userId = req.user?.id;
     if (!userId) {
         return res.status(401).json({ error: "Unauthorized" });
     }
@@ -36,10 +37,11 @@ export async function addPost(req, res) {
     catch (err) {
         res.status(500).json({ error: "Failed to create post" });
     }
+    return;
 }
 export async function getAllComments(req, res) {
     try {
-        const postId = Number(req.params.postId);
+        const postId = Number(req.params["postId"]);
         const comments = await retrieveAllComments(postId);
         res.json(comments);
     }
@@ -49,8 +51,8 @@ export async function getAllComments(req, res) {
 }
 export async function addComment(req, res) {
     const { content } = matchedData(req);
-    const postId = Number(req.params.postId);
-    const userId = req.user.id;
+    const postId = Number(req.params["postId"]);
+    const userId = req.user?.id;
     if (!userId) {
         return res.status(401).json({ error: "Unauthorized" });
     }
@@ -61,5 +63,6 @@ export async function addComment(req, res) {
     catch (err) {
         res.status(500).json({ error: "Failed to add comment" });
     }
+    return;
 }
 //# sourceMappingURL=postsController.js.map

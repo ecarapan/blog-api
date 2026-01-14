@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import {
   retrieveUser,
   retrieveAllUserPosts,
-} from "../db/queries/usersQueries.js";
+} from "../database/usersQueries.js";
 
 export async function getUser(req: Request, res: Response) {
   try {
