@@ -1,6 +1,6 @@
 import styles from "@/pages/loginPage/LoginPage.module.css";
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -9,10 +9,10 @@ export function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
 
@@ -53,7 +53,7 @@ export function LoginPage() {
         <button type="submit">Login</button>
       </form>
       {error && <div style={{ color: "red" }}>{error}</div>}
-      <Link to="/signup">Don't have an account? Sign up</Link>
+      <Link to="/signup">Sign up</Link>
     </div>
   );
 }

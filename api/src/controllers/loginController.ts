@@ -30,6 +30,7 @@ export async function login(req: Request, res: Response) {
 
     res.json({ message: "Login successful", token });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Login failed" });
   }
   return;

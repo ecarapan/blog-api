@@ -10,6 +10,7 @@ export async function getUser(req: Request, res: Response) {
     }
     res.json(user);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
   return;
@@ -21,6 +22,7 @@ export async function getUserPosts(req: Request, res: Response) {
     const posts = await getUserPostsQuery(userId);
     res.json(posts);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch user's posts" });
   }
   return;

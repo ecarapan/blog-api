@@ -1,5 +1,5 @@
 import styles from "@/pages/signupPage/SignupPage.module.css";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -8,10 +8,10 @@ export function SignupPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");

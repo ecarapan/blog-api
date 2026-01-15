@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
-import { retrieveUserByEmail } from "../db/queries/usersQueries.js";
+import { getUserByEmailQuery } from "../database/usersQueries.js";
 import bcrypt from "bcryptjs";
 import { matchedData } from "express-validator";
 export async function login(req, res) {
     const { email, password } = matchedData(req);
     try {
-        const user = await retrieveUserByEmail(email);
+        const user = await getUserByEmailQuery(email);
         if (!user) {
             return res.status(401).json({ error: "No user with that email" });
         }
@@ -21,6 +21,7 @@ export async function login(req, res) {
         res.json({ message: "Login successful", token });
     }
     catch (err) {
+        console.log(err);
         res.status(500).json({ error: "Login failed" });
     }
     return;

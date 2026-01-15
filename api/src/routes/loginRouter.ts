@@ -7,4 +7,4 @@ import {
 
 export const loginRouter = Router();
 
-loginRouter.post("/login", loginValidationRules, validate, login);
+loginRouter.post("/", loginValidationRules, validate, login);

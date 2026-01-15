@@ -2,46 +2,41 @@ import styles from "@/pages/userPage/UserPage.module.css";
 import { useParams } from "react-router";
 import { Post } from "@/pages/homePage/post/Post.jsx";
 import { useFetch } from "@/hooks/useFetch";
+import type { User } from "@/types/user";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export function UserPage() {
   const { userId } = useParams();
   const {
-    data: userPostsList,
-    loading: userPostsLoading,
-    error: userPostsError,
-  } = useFetch(`${API_BASE}/users/${userId}/posts`);
-  const {
     data: user,
     loading: userLoading,
     error: userError,
-  } = useFetch(`${API_BASE}/users/${userId}`);
+  } = useFetch<User>(`${API_BASE}/users/${userId}`);
 
   return (
     <div className={styles.userPage}>
-      {(userLoading || userPostsLoading) && (
-        <div className={styles.loadingSpinner}></div>
-      )}
-      {(userError || userPostsError) && (
-        <h2 className={styles.errorSpinner}>{userError || userPostsError}</h2>
-      )}
+      {userError && <h2 className={styles.errorSpinner}>{userError}</h2>}
+      {userLoading && <div className={styles.loadingSpinner}></div>}
       {user && (
         <>
-          <h1>Profile</h1>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
+          <main>
+            <h1>Profile</h1>
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+          </main>
+          <section>
+            {user.posts.map((post) => (
+              <Post
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                content={post.content}
+              />
+            ))}
+          </section>
         </>
       )}
-      {userPostsList &&
-        userPostsList.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            content={post.content}
-          />
-        ))}
     </div>
   );
 }

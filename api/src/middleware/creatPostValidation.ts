@@ -8,6 +8,7 @@ export const createPostValidationRules = [
     .trim()
     .notEmpty()
     .withMessage("Post body required."),
+  body("isPosted").isBoolean().optional(),
 ];
 
 export function validate(req: Request, res: Response, next: NextFunction) {

@@ -4,6 +4,7 @@ import { formatDate } from "@/util/formatDate";
 import { Link } from "react-router";
 import { useParams } from "react-router";
 import { useFetch } from "@/hooks/useFetch";
+import type { Post } from "@/types/post";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -13,53 +14,38 @@ export function PostPage() {
     data: post,
     loading: postLoading,
     error: postError,
-  } = useFetch(postId ? `${API_BASE}/posts/${postId}` : null);
-  const {
-    data: commentsList,
-    loading: commentsLoading,
-    error: commentsError,
-  } = useFetch(postId ? `${API_BASE}/posts/${postId}/comments` : null);
-  const {
-    data: user,
-    loading: userLoading,
-    error: userError,
-  } = useFetch(post ? `${API_BASE}/users/${post.user_id}` : null);
+  } = useFetch<Post>(`${API_BASE}/posts/${postId}`);
 
   return (
     <div className={styles.postPage}>
-      <main>
-        {(postLoading || userLoading) && (
-          <div className={styles.loadingSpinner}></div>
-        )}
-        {postError && <h2 className={styles.errorSpinner}>{postError}</h2>}
-        {userError && <h2 className={styles.errorSpinner}>{userError}</h2>}
-        {post && user && (
-          <>
+      {postLoading && <div className={styles.loadingSpinner}></div>}
+      {postError && <h2 className={styles.errorSpinner}>{postError}</h2>}
+      {post && (
+        <>
+          <main>
             <h1>{post.title}</h1>
             <p>{formatDate(post.date)}</p>
-            <Link to={`/users/${user.id}`} className={styles.postToUserBtn}>
-              {user.name}
+            <Link
+              to={`/users/${post.user.id}`}
+              className={styles.postToUserBtn}
+            >
+              {post.user.name}
             </Link>
             <p>{post.content}</p>
-          </>
-        )}
-      </main>
-      <section>
-        <h2>Comments</h2>
-        {commentsLoading && <div className={styles.loadingSpinner}></div>}
-        {commentsError && (
-          <h2 className={styles.errorSpinner}>{commentsError}</h2>
-        )}
-        {commentsList &&
-          commentsList.map((comment) => (
-            <Comment
-              key={comment.id}
-              userId={comment.user_id}
-              content={comment.content}
-              date={comment.date}
-            />
-          ))}
-      </section>
+          </main>
+          <section>
+            <h2>Comments</h2>
+            {post.comments.map((comment) => (
+              <Comment
+                key={comment.id}
+                userId={comment.user.id}
+                content={comment.content}
+                date={comment.date}
+              />
+            ))}
+          </section>
+        </>
+      )}
     </div>
   );
 }

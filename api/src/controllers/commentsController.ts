@@ -11,6 +11,7 @@ export async function getComments(req: Request, res: Response) {
     const comments = await getCommentsQuery(postId);
     res.json(comments);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch comments" });
   }
 }
@@ -26,6 +27,7 @@ export async function createComment(req: Request, res: Response) {
     const comment = await createCommentQuery(postId, userId, content);
     res.status(201).json({ message: "Comment added", comment });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to add comment" });
   }
   return;

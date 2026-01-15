@@ -1,17 +1,12 @@
 import { body, validationResult } from "express-validator";
 export const createPostValidationRules = [
-    body("title")
-        .isString()
-        .trim()
-        .notEmpty()
-        .escape()
-        .withMessage("Title required."),
+    body("title").isString().trim().notEmpty().withMessage("Title required."),
     body("content")
         .isString()
         .trim()
         .notEmpty()
-        .escape()
         .withMessage("Post body required."),
+    body("isPosted").isBoolean().optional(),
 ];
 export function validate(req, res, next) {
     const errors = validationResult(req);

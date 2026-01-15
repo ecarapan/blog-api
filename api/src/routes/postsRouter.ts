@@ -10,16 +10,19 @@ import {
   createPostValidationRules,
   validate,
 } from "../middleware/creatPostValidation.js";
+import { commentsRouter } from "./commentsRouter.js";
 
 export const postsRouter = Router();
 
-postsRouter.get("/posts", getPosts);
-postsRouter.get("/posts/:postId", getPost);
+postsRouter.get("/", getPosts);
+postsRouter.get("/drafts", getDrafts);
+postsRouter.get("/:postId", getPost);
+postsRouter.use("/:postId/comments", commentsRouter);
+
 postsRouter.post(
-  "/posts",
+  "/",
   verifyToken,
   createPostValidationRules,
   validate,
   createPost
 );
-postsRouter.get("posts/drafts", getDrafts);

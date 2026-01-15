@@ -4,13 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/app.ts",
-    "build": "rm -rf build && npx tsc",
+    "dev": "tsx watch src/app.ts",
+    "build": "rm -rf build && tsc",
     "prestart": "npm run build",
-    "start": "node build/app.js",
-    "start-db": "sudo service postgresql start",
-    "populate-db": "node src/db/populatedb.js",
-    "lint": "tsx eslint ."
+    "start": "node build/app.js"
   },
   "repository": {
     "type": "git",
@@ -35,14 +32,19 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.8",
     "@types/pg": "^8.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
+    "eslint": "^9.39.2",
     "globals": "^17.0.0",
     "prettier": "^3.7.4",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0"
   }
 }

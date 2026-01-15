@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getUser, getAllUserPosts } from "../controllers/usersController.js";
+import { getUser, getUserPosts } from "../controllers/usersController.js";
 export const usersRouter = Router();
 usersRouter.get("/:userId", getUser);
-usersRouter.get("/:userId/posts", getAllUserPosts);
+usersRouter.get("/:userId/posts", getUserPosts);
 //# sourceMappingURL=usersRouter.js.map

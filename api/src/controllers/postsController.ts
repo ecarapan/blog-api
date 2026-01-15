@@ -12,6 +12,7 @@ export async function getPosts(_req: Request, res: Response) {
     const posts = await getPostsQuery();
     res.json(posts);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 }
@@ -21,6 +22,7 @@ export async function getDrafts(_req: Request, res: Response) {
     const posts = await getDraftsQuery();
     res.json(posts);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 }
@@ -34,6 +36,7 @@ export async function getPost(req: Request, res: Response) {
     }
     res.json(post);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to fetch post" });
   }
   return;
@@ -49,6 +52,7 @@ export async function createPost(req: Request, res: Response) {
     const post = await createPostQuery(title, content, isPosted, userId);
     res.status(201).json({ message: "Post created", post });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Failed to create post" });
   }
   return;

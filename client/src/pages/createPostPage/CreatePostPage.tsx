@@ -6,19 +6,15 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 
 export function CreatePostPage() {
   const [error, setError] = useState("");
+  const [action, setAction] = useState<"upload" | "draft" | null>(null);
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    console.log(
-      "formData action:",
-      new FormData(e.currentTarget).get("action")
-    );
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const title = formData.get("title");
     const content = formData.get("content");
-    const action = e.nativeEvent.submitter?.value;
     const isPosted = action === "upload";
     const token = localStorage.getItem("token");
 
@@ -65,10 +61,10 @@ export function CreatePostPage() {
             <textarea name="content" required />
           </label>
         </div>
-        <button type="submit" name="action" value="upload">
+        <button type="submit" onClick={() => setAction("upload")}>
           Upload
         </button>
-        <button type="submit" name="action" value="draft">
+        <button type="submit" onClick={() => setAction("draft")}>
           Save as Draft
         </button>
       </form>

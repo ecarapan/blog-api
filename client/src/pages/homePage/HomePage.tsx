@@ -4,7 +4,7 @@ import { useFetch } from "@/hooks/useFetch";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-type PostType = {
+type Post = {
   id: number;
   title: string;
   content: string;
@@ -18,16 +18,15 @@ export function HomePage() {
     data: postsList,
     loading: postsLoading,
     error: postsError,
-  } = useFetch<PostType[]>(`${API_BASE}/posts`);
-  const publishedPostsList = (postsList ?? []).filter((post) => post.is_posted);
+  } = useFetch<Post[]>(`${API_BASE}/posts`);
 
   return (
     <div className={styles.homePage}>
       <main>
         {postsLoading && <div className={styles.loadingSpinner}></div>}
         {postsError && <h2 className={styles.errorSpinner}>{postsError}</h2>}
-        {publishedPostsList &&
-          publishedPostsList.map((post) => (
+        {postsList &&
+          postsList.map((post) => (
             <Post
               key={post.id}
               id={post.id}

@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { verifyToken } from "../middleware/verifyToken.js";
-import { getAllPosts, getPost, addPost, getAllComments, addComment, } from "../controllers/postsController.js";
+import { getPosts, getDrafts, getPost, createPost, } from "../controllers/postsController.js";
 import { createPostValidationRules, validate, } from "../middleware/creatPostValidation.js";
+import { commentsRouter } from "./commentsRouter.js";
 export const postsRouter = Router();
-postsRouter.get("/", getAllPosts);
+postsRouter.get("/", getPosts);
+postsRouter.get("/drafts", getDrafts);
 postsRouter.get("/:postId", getPost);
-postsRouter.post("/", verifyToken, addPost);
-postsRouter.get("/:postId/comments", getAllComments);
-postsRouter.post("/:postId/comments", verifyToken, createPostValidationRules, validate, addComment);
+postsRouter.use("/:postId/comments", commentsRouter);
+postsRouter.post("/", verifyToken, createPostValidationRules, validate, createPost);
 //# sourceMappingURL=postsRouter.js.map

@@ -1,10 +1,4 @@
-import type {
-  Generated,
-  ColumnType,
-  Insertable,
-  Selectable,
-  Updateable,
-} from "kysely";
+import type { Generated, ColumnType } from "kysely";
 
 export interface Database {
   users: UsersTable;
@@ -35,16 +29,3 @@ export interface CommentsTable {
   content: string;
   date: ColumnType<Date, string | undefined, never>;
 }
-
-// Optional: Helper types for inserts/updates
-export type User = Selectable<UsersTable>;
-export type NewUser = Insertable<UsersTable>;
-export type UserUpdate = Updateable<UsersTable>;
-
-export type Post = Selectable<PostsTable>;
-export type NewPost = Insertable<PostsTable>;
-export type PostUpdate = Updateable<PostsTable>;
-
-export type Comment = Selectable<CommentsTable>;
-export type NewComment = Insertable<CommentsTable>;
-export type CommentUpdate = Updateable<CommentsTable>;

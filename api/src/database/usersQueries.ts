@@ -1,11 +1,24 @@
 import { db } from "./setup/database.js";
 
 export async function getUserQuery(userId: number) {
-  return await db
+  const user = await db
     .selectFrom("users")
     .selectAll()
     .where("id", "=", userId)
     .executeTakeFirst();
+
+  if (!user) return null;
+
+  const posts = await db
+    .selectFrom("posts")
+    .select(["id", "title", "content", "date"])
+    .where("user_id", "=", userId)
+    .execute();
+
+  return {
+    ...user,
+    posts,
+  };
 }
 
 export async function getUserPostsQuery(userId: number) {

@@ -1,7 +1,13 @@
 import styles from "@/pages/homePage/post/Post.module.css";
 import { Link } from "react-router";
 
-export function Post({ id, title, content }) {
+interface PostProps {
+  id: number;
+  title: string;
+  content: string;
+}
+
+export function Post({ id, title, content }: PostProps) {
   return (
     <article className={styles.post}>
       <div className={styles.info}>
