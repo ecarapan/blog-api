@@ -1,0 +1,40 @@
+.post {
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.2);
+}
+
+.post:hover {
+  background-color: rgb(249, 249, 255);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsBtn img {
+  height: 20px;
+}
+
+.commentsBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  background-color: rgb(241, 241, 255);
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px 10px 10px;
+  align-self: flex-start;
+}
+
+.commentsBtn:active {
+  background-color: rgb(219, 219, 255);
+}

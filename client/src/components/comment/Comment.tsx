@@ -1,7 +1,8 @@
-import styles from "@/pages/postPage/comment/Comment.module.css";
+import styles from "@/components/comment/Comment.module.css";
 import { Link } from "react-router";
 import { useFetch } from "@/hooks/useFetch";
-import type { User } from "@/types/user";
+import type { User } from "@/pages/userPage/UserPage";
+import { formatDate } from "@/util/formatDate";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -28,7 +29,7 @@ export function Comment({ userId, content, date }: CommentProps) {
             {user.name}
           </Link>
           <p>{content}</p>
-          <p>{date}</p>
+          <p>{formatDate(date)}</p>
         </>
       )}
     </article>

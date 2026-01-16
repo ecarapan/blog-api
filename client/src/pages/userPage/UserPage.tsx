@@ -1,10 +1,18 @@
 import styles from "@/pages/userPage/UserPage.module.css";
 import { useParams } from "react-router";
-import { Post } from "@/pages/homePage/post/Post.jsx";
+import { Post } from "@/components/post/Post.js";
 import { useFetch } from "@/hooks/useFetch";
-import type { User } from "@/types/user";
+import type { PostType } from "../homePage/HomePage";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
+
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  posts: PostType[];
+};
 
 export function UserPage() {
   const { userId } = useParams();
@@ -32,6 +40,7 @@ export function UserPage() {
                 id={post.id}
                 title={post.title}
                 content={post.content}
+                commentsCount={post.comments_count}
               />
             ))}
           </section>

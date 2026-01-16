@@ -1,12 +1,30 @@
 import styles from "@/pages/postPage/PostPage.module.css";
-import { Comment } from "@/pages/postPage/comment/Comment.jsx";
 import { formatDate } from "@/util/formatDate";
 import { Link } from "react-router";
 import { useParams } from "react-router";
 import { useFetch } from "@/hooks/useFetch";
-import type { Post } from "@/types/post";
+import type { User } from "@/pages/userPage/UserPage.tsx";
+import { Comment } from "../../components/comment/Comment";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
+
+export type Post = {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  user: User;
+  comments: Comment[];
+};
+
+export type Comment = {
+  id: number;
+  post_id: number;
+  user_id: number;
+  content: string;
+  date: string;
+  user: User;
+};
 
 export function PostPage() {
   const { postId } = useParams();

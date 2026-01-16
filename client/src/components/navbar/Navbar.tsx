@@ -4,8 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import plusIcon from "@/assets/plus-circle-outline.svg";
 import logoutIcon from "@/assets/logout-variant.svg";
 import profileIcon from "@/assets/file-account-outline.svg";
+import menuIcon from "@/assets/menu.svg";
 
-export function Navbar() {
+type NavbarProps = {
+  onSidebarToggle: () => void;
+};
+
+export function Navbar({ onSidebarToggle }: NavbarProps) {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -61,9 +66,14 @@ export function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <Link to="/" className={styles.navbarTitle}>
-        Forum
-      </Link>
+      <div className={styles.menu}>
+        <button onClick={onSidebarToggle}>
+          <img src={menuIcon} />
+        </button>
+        <Link to="/" className={styles.navbarTitle}>
+          Forum
+        </Link>
+      </div>
       {isLoggedIn && (
         <div className={styles.actions}>
           <Link to={"/create"} className={styles.createPostBtn}>

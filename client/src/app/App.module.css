@@ -1,12 +1,7 @@
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  background-color: rgb(245, 245, 245);
 }
 
 .content {
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  flex: 1;
 }

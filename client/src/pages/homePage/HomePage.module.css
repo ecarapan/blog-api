@@ -1,13 +1,7 @@
 .homePage {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  padding: 20px 400px;
   flex: 1;
-}
-
-.homePage main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  justify-content: center;
-  padding: 20px;
 }
