@@ -10,7 +10,9 @@ export function App() {
   return (
     <div className={styles.app}>
       {!hideNavbar && <Navbar />}
-      <Outlet />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/app.ts",
-    "build": "rm -rf build && tsc",
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
     "prestart": "npm run build",
-    "start": "node build/app.js"
+    "start": "node dist/main.js"
   },
   "repository": {
     "type": "git",

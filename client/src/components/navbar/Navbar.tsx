@@ -1,6 +1,9 @@
 import styles from "@/components/navbar/Navbar.module.css";
 import { Link, useNavigate } from "react-router";
 import { useState, useEffect, useRef } from "react";
+import plusIcon from "@/assets/plus-circle-outline.svg";
+import logoutIcon from "@/assets/logout-variant.svg";
+import profileIcon from "@/assets/file-account-outline.svg";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -31,12 +34,12 @@ export function Navbar() {
     setUserMenuOpen(!userMenuOpen);
   }
 
-  function getUserIdFromToken() {
+  function getUserFromToken() {
     const token = localStorage.getItem("token");
     if (!token) return null;
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.id;
+      return payload;
     } catch {
       return null;
     }
@@ -44,40 +47,51 @@ export function Navbar() {
 
   function handleUserProfile() {
     setUserMenuOpen(false);
-    const userId = getUserIdFromToken();
+    const userId = getUserFromToken().id;
     if (userId) {
       navigate(`/users/${userId}`);
     }
   }
 
+  function getUserInitial() {
+    const user = getUserFromToken();
+    const userInitial = user.name[0].toUpperCase();
+    return userInitial;
+  }
+
   return (
     <nav className={styles.navbar}>
-      <Link to="/">
-        <h1>Forum</h1>
+      <Link to="/" className={styles.navbarTitle}>
+        Forum
       </Link>
       {isLoggedIn && (
         <div className={styles.actions}>
-          <Link to={"/create"}>Create Post</Link>
-          <div ref={menuRef}>
+          <Link to={"/create"} className={styles.createPostBtn}>
+            <img src={plusIcon} />
+            Create Post
+          </Link>
+          <div ref={menuRef} className={styles.menuWrapper}>
             <button onClick={handleUserMenu} className={styles.dropDownBtn}>
-              User
+              {getUserInitial()}
             </button>
-            {userMenuOpen && (
-              <div className={styles.userMenu}>
-                <button className={styles.menuItem} onClick={handleUserProfile}>
-                  Profile
-                </button>
-                <button className={styles.menuItem} onClick={handleLogout}>
-                  Logout
-                </button>
-              </div>
-            )}
+            <div
+              className={`${styles.userMenu} ${userMenuOpen ? styles.open : ""}`}
+            >
+              <button onClick={handleUserProfile}>
+                <img src={profileIcon} />
+                Profile
+              </button>
+              <button onClick={handleLogout}>
+                <img src={logoutIcon} />
+                Log Out
+              </button>
+            </div>
           </div>
         </div>
       )}
       {!isLoggedIn && (
         <Link to="/login" className={styles.loginButton}>
-          Login
+          Log In
         </Link>
       )}
     </nav>

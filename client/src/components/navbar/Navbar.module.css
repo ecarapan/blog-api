@@ -1,7 +1,126 @@
 .navbar {
-  background-color: lightblue;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.2);
+  position: sticky;
+}
+
+.navbarTitle {
+  font-size: 30px;
+  color: blue;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.loginButton {
+  background-color: rgb(0, 0, 255);
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 999px;
+  font-weight: bold;
+}
+
+.loginButton:hover {
+  outline: 5px solid rgb(228, 228, 228);
+}
+
+.loginButton:active {
+  outline: 5px solid rgb(228, 228, 228);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.createPostBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 10px 15px 10px 10px;
+}
+
+.createPostBtn img {
+  height: 25px;
+}
+
+.createPostBtn:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.createPostBtn:active {
+  background-color: rgb(219, 219, 255);
+}
+
+.dropDownBtn {
+  height: 40px;
+  width: 40px;
+  background-color: blue;
+  color: white;
+  font-size: 20px;
+  border-radius: 999px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.dropDownBtn:hover {
+  outline: 5px solid rgb(241, 241, 255);
+}
+
+.dropDownBtn:active {
+  outline: 5px solid rgb(219, 219, 255);
+}
+
+.menuWrapper {
+  position: relative;
+}
+
+.userMenu {
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 200px;
+  transform: scale(0);
+  transition: transform 0.1s;
+  transform-origin: top right;
+}
+
+.userMenu.open {
+  transform: scale(1);
+}
+
+.userMenu button {
+  background: none;
+  border: none;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userMenu button img {
+  height: 20px;
+}
+
+.userMenu button:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.userMenu button:active {
+  background-color: rgb(219, 219, 255);
 }
