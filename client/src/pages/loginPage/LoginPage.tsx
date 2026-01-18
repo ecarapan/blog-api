@@ -39,43 +39,42 @@ export function LoginPage() {
   return (
     <div className={styles.loginPage}>
       <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <div>
-          <label>
-            Email
+        <div className={styles.info}>
+          <h1>Welcome Back!</h1>
+          <p>Please log in to your account.</p>
+        </div>
+        <label>
+          Email
+          <input
+            name="email"
+            type="email"
+            required
+            className={styles.emailInput}
+          />
+        </label>
+        <label>
+          Password
+          <div className={styles.passwordInputWrapper}>
             <input
-              name="email"
-              type="email"
+              name="password"
+              type={showPassword ? "text" : "password"}
               required
-              className={styles.emailInput}
             />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <div className={styles.passwordInputWrapper}>
-              <input
-                name="password"
-                type={showPassword ? "text" : "password"}
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-            </div>
-          </label>
-        </div>
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+        </label>
         <div className={styles.error}>{error}</div>
         <button type="submit" className={styles.submitBtn}>
-          Login
+          Log In
         </button>
         <div className={styles.signup}>
           <p>Don&apos;t have an account?</p>
-          <Link to="/signup">Sign up</Link>
+          <Link to="/signup">Sign Up</Link>
         </div>
       </form>
     </div>
