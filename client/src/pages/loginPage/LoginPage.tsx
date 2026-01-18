@@ -8,6 +8,7 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 export function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,22 +39,45 @@ export function LoginPage() {
   return (
     <div className={styles.loginPage}>
       <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
         <div>
           <label>
-            Email:
-            <input name="email" type="email" required />
+            Email
+            <input
+              name="email"
+              type="email"
+              required
+              className={styles.emailInput}
+            />
           </label>
         </div>
         <div>
           <label>
-            Password:
-            <input name="password" type="password" required />
+            Password
+            <div className={styles.passwordInputWrapper}>
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </label>
         </div>
-        <button type="submit">Login</button>
+        <div className={styles.error}>{error}</div>
+        <button type="submit" className={styles.submitBtn}>
+          Login
+        </button>
+        <div className={styles.signup}>
+          <p>Don&apos;t have an account?</p>
+          <Link to="/signup">Sign up</Link>
+        </div>
       </form>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <Link to="/signup">Sign up</Link>
     </div>
   );
 }

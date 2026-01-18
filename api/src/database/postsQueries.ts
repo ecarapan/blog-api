@@ -3,8 +3,16 @@ import { db } from "./setup/database.js";
 export async function getPostsQuery() {
   return await db
     .selectFrom("posts")
-    .selectAll()
+    .leftJoin("comments", "posts.id", "comments.post_id")
+    .select([
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      db.fn.count("comments.id").as("comments_count"),
+    ])
     .where("is_posted", "=", true)
+    .groupBy("posts.id")
+    .orderBy("posts.id", "desc")
     .execute();
 }
 

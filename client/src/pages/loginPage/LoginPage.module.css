@@ -1,0 +1,86 @@
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 100%;
+  min-height: 100vh;
+}
+
+.loginPage form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  gap: 10px;
+  height: 450px;
+  width: 400px;
+}
+
+.loginPage h1 {
+  margin-bottom: 20px;
+}
+
+.loginPage label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.emailInput {
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 1px solid rgb(214, 214, 214);
+}
+
+.passwordInputWrapper {
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 1px solid rgb(214, 214, 214);
+  display: flex;
+  gap: 8px;
+}
+
+.passwordInputWrapper:focus-within {
+  outline: 2px solid black;
+}
+
+.passwordInputWrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.passwordInputWrapper button {
+  border: none;
+  background: none;
+  color: blue;
+}
+
+.submitBtn {
+  margin-top: 20px;
+  background-color: blue;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+}
+
+.error {
+  min-height: 1.5em; /* Reserve space for one line of text */
+  color: red;
+  text-align: center;
+  transition: opacity 0.2s;
+  opacity: 1;
+}
+.error:empty {
+  opacity: 0;
+}
+
+.signup {
+  margin-top: auto;
+  display: flex;
+  gap: 5px;
+  align-self: center;
+}

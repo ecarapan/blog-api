@@ -18,7 +18,7 @@ export function App() {
     <div className={styles.app}>
       {!hideNavbar && <Navbar onSidebarToggle={handleSidebar} />}
       <div className={styles.content}>
-        <Sidebar isOpen={sidebarOpen} />
+        {!hideNavbar && <Sidebar isOpen={sidebarOpen} />}
         <Outlet />
       </div>
     </div>
