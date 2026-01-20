@@ -12,7 +12,11 @@
   transition: margin-left 0.1s;
 }
 
-.sidebar.closed {
+.selected {
+  background-color: rgb(219, 219, 255);
+}
+
+.closed {
   margin-left: -250px;
 }
 
@@ -31,9 +35,21 @@
   align-items: center;
   gap: 5px;
   font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
 }
 
-.homeLink {
+.sidebar li:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.sidebar li:active {
+  background-color: rgb(219, 219, 255);
+}
+
+.link {
   text-decoration: none;
   color: black;
 }
