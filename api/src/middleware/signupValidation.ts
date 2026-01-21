@@ -1,9 +1,19 @@
 import type { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
+import { getUserByEmailQuery } from "../database/usersQueries.js";
 
 export const signupValidationRules = [
   body("name").trim().isLength({ min: 1 }).withMessage("Name is required."),
-  body("email").trim().isEmail().withMessage("Email must be valid."),
+  body("email")
+    .trim()
+    .isEmail()
+    .withMessage("Email must be valid.")
+    .custom(async (email) => {
+      const user = await getUserByEmailQuery(email);
+      if (user) {
+        throw new Error("A user with that email already exists.");
+      }
+    }),
   body("password")
     .isString()
     .trim()
@@ -13,6 +23,9 @@ export const signupValidationRules = [
     .withMessage("Password must contain at least one uppercase letter.")
     .matches(/\d/)
     .withMessage("Password must contain at least one number."),
+  body("confirmPassword")
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage("Passwords do not match."),
 ];
 
 export function validate(req: Request, res: Response, next: NextFunction) {

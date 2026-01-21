@@ -20,6 +20,7 @@ export async function createComment(req: Request, res: Response) {
   const { content } = matchedData(req);
   const postId = Number(req.params["postId"]);
   const userId = req.user?.id;
+
   if (!userId) {
     return res.status(401).json({ error: "Unauthorized" });
   }
@@ -30,5 +31,6 @@ export async function createComment(req: Request, res: Response) {
     console.log(err);
     res.status(500).json({ error: "Failed to add comment" });
   }
+
   return;
 }

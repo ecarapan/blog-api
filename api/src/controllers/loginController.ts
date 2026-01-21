@@ -6,6 +6,7 @@ import { matchedData } from "express-validator";
 
 export async function login(req: Request, res: Response) {
   const { email, password } = matchedData(req);
+
   try {
     const user = await getUserByEmailQuery(email);
     if (!user) {
@@ -25,7 +26,7 @@ export async function login(req: Request, res: Response) {
     const token = jwt.sign(
       { id: user.id, name: user.name, email: user.email },
       jwtSecret,
-      { expiresIn: "30d" }
+      { expiresIn: "30d" },
     );
 
     res.json({ message: "Login successful", token });
@@ -33,5 +34,6 @@ export async function login(req: Request, res: Response) {
     console.log(err);
     res.status(500).json({ error: "Login failed" });
   }
+
   return;
 }
