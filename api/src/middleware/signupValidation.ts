@@ -16,13 +16,15 @@ export const signupValidationRules = [
     }),
   body("password")
     .isString()
-    .trim()
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters.")
     .matches(/[A-Z]/)
     .withMessage("Password must contain at least one uppercase letter.")
     .matches(/\d/)
-    .withMessage("Password must contain at least one number."),
+    .withMessage("Password must contain at least one number.")
+    .not()
+    .matches(/\s/)
+    .withMessage("Password must not contain spaces."),
   body("confirmPassword")
     .custom((value, { req }) => value === req.body.password)
     .withMessage("Passwords do not match."),

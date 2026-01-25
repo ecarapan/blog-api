@@ -12,6 +12,9 @@ interface PostProps {
 
 export function Post({ id, title, content, commentsCount }: PostProps) {
   const navigate = useNavigate();
+  const maxLength = 500;
+  const preview =
+    content.length > maxLength ? content.slice(0, maxLength) + "..." : content;
 
   return (
     <article
@@ -22,9 +25,8 @@ export function Post({ id, title, content, commentsCount }: PostProps) {
     >
       <div className={styles.info}>
         <h2>{title}</h2>
-        <p>{content}</p>
+        <p>{preview}</p>
       </div>
-
       <Link
         to={`/posts/${id}`}
         className={styles.commentsBtn}

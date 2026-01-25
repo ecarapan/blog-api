@@ -8,6 +8,7 @@ export function CreatePostPage() {
   const [error, setError] = useState("");
   const [action, setAction] = useState<"upload" | "draft" | null>(null);
   const navigate = useNavigate();
+  const [titleCount, setTitleCount] = useState(0);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,7 +39,7 @@ export function CreatePostPage() {
         navigate("/");
       } else {
         setError(
-          data.errors?.[0]?.msg || data.error || "Failed to create post"
+          data.errors?.[0]?.msg || data.error || "Failed to create post",
         );
       }
     } catch {
@@ -48,30 +49,34 @@ export function CreatePostPage() {
 
   return (
     <div className={styles.createPostPage}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div>
-          <label>
-            Title:
-            <input name="title" type="text" required />
-          </label>
+      <form onSubmit={handleSubmit}>
+        <h1>Create post</h1>
+        <label>
+          Title
+          <textarea
+            name="title"
+            maxLength={300}
+            onChange={(e) => setTitleCount(e.target.value.length)}
+            rows={1}
+          />
+          <p className={styles.titleCount}>{titleCount}/300</p>
+        </label>
+        <label>
+          Content
+          <textarea name="content" rows={4}></textarea>
+        </label>
+        <div className={styles.info}>
+          <div className={styles.error}>{error}</div>
+          <div className={styles.actions}>
+            <button type="submit" onClick={() => setAction("upload")}>
+              Post
+            </button>
+            <button type="submit" onClick={() => setAction("draft")}>
+              Save as Draft
+            </button>
+          </div>
         </div>
-        <div>
-          <label>
-            Content:
-            <textarea name="content" required />
-          </label>
-        </div>
-        <button type="submit" onClick={() => setAction("upload")}>
-          Upload
-        </button>
-        <button type="submit" onClick={() => setAction("draft")}>
-          Save as Draft
-        </button>
       </form>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <section>
-        <h2>Drafts</h2>
-      </section>
     </div>
   );
 }
