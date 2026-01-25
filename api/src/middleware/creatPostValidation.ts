@@ -2,7 +2,13 @@ import type { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 
 export const createPostValidationRules = [
-  body("title").isString().trim().notEmpty().withMessage("Title required."),
+  body("title")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Title required.")
+    .isLength({ max: 200 })
+    .withMessage("Title must be at most 300 characters."),
   body("content")
     .isString()
     .trim()

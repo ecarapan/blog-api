@@ -24,7 +24,7 @@ export function Post({ id, title, content, commentsCount }: PostProps) {
       role="button"
     >
       <div className={styles.info}>
-        <h2>{title}</h2>
+        <h1>{title}</h1>
         <p>{preview}</p>
       </div>
       <Link

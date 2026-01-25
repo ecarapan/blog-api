@@ -1,58 +1,50 @@
-import { db } from "./setup/database.js";
+import { pool } from "./setup/pool.js";
 
+// Get all posted posts with comment count
 export async function getPostsQuery() {
-  return await db
-    .selectFrom("posts")
-    .leftJoin("comments", "posts.id", "comments.post_id")
-    .select([
-      "posts.id",
-      "posts.title",
-      "posts.content",
-      db.fn.count("comments.id").as("comments_count"),
-    ])
-    .where("is_posted", "=", true)
-    .groupBy("posts.id")
-    .orderBy("posts.id", "desc")
-    .execute();
+  const { rows } = await pool.query(
+    `SELECT posts.id, posts.title, posts.content, COUNT(comments.id) AS comments_count
+     FROM posts
+     LEFT JOIN comments ON posts.id = comments.post_id
+     WHERE posts.is_posted = true
+     GROUP BY posts.id
+     ORDER BY posts.id DESC`,
+  );
+  return rows;
 }
 
+// Get all drafts
 export async function getDraftsQuery() {
-  return await db
-    .selectFrom("posts")
-    .selectAll()
-    .where("is_posted", "=", false)
-    .execute();
+  const { rows } = await pool.query(
+    `SELECT * FROM posts WHERE is_posted = false`,
+  );
+  return rows;
 }
 
+// Get a single post with user info and comments
 export async function getPostQuery(postId: number) {
-  const post = await db
-    .selectFrom("posts")
-    .innerJoin("users", "posts.user_id", "users.id")
-    .select([
-      "posts.id as id",
-      "posts.title as title",
-      "posts.content as content",
-      "posts.date as date",
-      "users.id as user_id",
-      "users.name as user_name",
-    ])
-    .where("posts.id", "=", postId)
-    .executeTakeFirst();
-
+  // Get the post and user info
+  const { rows: postRows } = await pool.query(
+    `SELECT posts.id, posts.title, posts.content, posts.date,
+            users.id AS user_id, users.name AS user_name
+     FROM posts
+     INNER JOIN users ON posts.user_id = users.id
+     WHERE posts.id = $1`,
+    [postId],
+  );
+  const post = postRows[0];
   if (!post) return null;
 
-  const comments = await db
-    .selectFrom("comments")
-    .innerJoin("users", "comments.user_id", "users.id")
-    .select([
-      "comments.id as id",
-      "comments.content as content",
-      "comments.date as date",
-      "users.id as user_id",
-      "users.name as user_name",
-    ])
-    .where("comments.post_id", "=", postId)
-    .execute();
+  // Get comments with user info
+  const { rows: comments } = await pool.query(
+    `SELECT comments.id, comments.content, comments.date,
+            users.id AS user_id, users.name AS user_name
+     FROM comments
+     INNER JOIN users ON comments.user_id = users.id
+     WHERE comments.post_id = $1
+     ORDER BY comments.date ASC`,
+    [postId],
+  );
 
   return {
     id: post.id,
@@ -75,15 +67,18 @@ export async function getPostQuery(postId: number) {
   };
 }
 
+// Create a post and return the inserted row
 export async function createPostQuery(
   title: string,
   content: string,
   isPosted: boolean,
-  userId: number
+  userId: number,
 ) {
-  return await db
-    .insertInto("posts")
-    .values({ title, content, is_posted: isPosted, user_id: userId })
-    .returningAll() // optional: returns the inserted row
-    .executeTakeFirst(); // <-- THIS RUNS THE QUERY!
+  const { rows } = await pool.query(
+    `INSERT INTO posts (title, content, is_posted, user_id)
+     VALUES ($1, $2, $3, $4)
+     RETURNING *`,
+    [title, content, isPosted, userId],
+  );
+  return rows[0];
 }

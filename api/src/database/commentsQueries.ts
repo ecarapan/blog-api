@@ -1,21 +1,26 @@
-import { db } from "./setup/database.js";
+import { pool } from "./setup/pool.js";
 
 export async function getCommentsQuery(postId: number) {
-  return await db
-    .selectFrom("comments")
-    .selectAll()
-    .where("post_id", "=", postId)
-    .execute();
+  const { rows } = await pool.query(
+    `SELECT id, post_id, user_id, content, date
+     FROM comments
+     WHERE post_id = $1
+     ORDER BY date ASC`,
+    [postId],
+  );
+  return rows;
 }
 
 export async function createCommentQuery(
   postId: number,
   userId: number,
-  content: string
+  content: string,
 ) {
-  return await db
-    .insertInto("comments")
-    .values({ post_id: postId, user_id: userId, content })
-    .returning(["id", "post_id", "user_id", "content"])
-    .executeTakeFirst();
+  const { rows } = await pool.query(
+    `INSERT INTO comments (post_id, user_id, content)
+     VALUES ($1, $2, $3)
+     RETURNING id, post_id, user_id, content, date`,
+    [postId, userId, content],
+  );
+  return rows[0];
 }

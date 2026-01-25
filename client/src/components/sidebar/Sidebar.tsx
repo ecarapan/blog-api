@@ -8,27 +8,30 @@ export function Sidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <aside className={`${styles.sidebar} ${!isOpen ? styles.closed : ""}`}>
       <ul>
-        <li className={location.pathname === "/" ? styles.selected : ""}>
-          <img src={homeIcon} />
-          <Link to="/" className={styles.link}>
+        <li>
+          <Link
+            to="/"
+            className={`${styles.link} ${location.pathname === "/" ? styles.selected : ""}`}
+          >
+            <img src={homeIcon} />
             Home
           </Link>
         </li>
         <li>
-          <img src={homeIcon} />
           <Link to="/" className={styles.link}>
+            <img src={homeIcon} />
             Messages
           </Link>
         </li>
         <li>
-          <img src={homeIcon} />
           <Link to="/" className={styles.link}>
+            <img src={homeIcon} />
             Popular
           </Link>
         </li>
         <li>
-          <img src={homeIcon} />
           <Link to="/" className={styles.link}>
+            <img src={homeIcon} />
             Oldest
           </Link>
         </li>

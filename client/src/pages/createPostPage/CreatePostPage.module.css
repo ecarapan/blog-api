@@ -18,13 +18,22 @@
   gap: 5px;
 }
 
-.createPostPage textarea {
+.titleTextarea {
   resize: vertical;
   border-radius: 10px;
   padding: 5px 10px;
   border: 1px solid rgb(214, 214, 214);
   min-height: 35px;
   max-height: 100px;
+}
+
+.contentTextarea {
+  resize: vertical;
+  border-radius: 10px;
+  padding: 5px 10px;
+  border: 1px solid rgb(214, 214, 214);
+  min-height: 35px;
+  max-height: 5ccx00px;
 }
 
 .titleCount {

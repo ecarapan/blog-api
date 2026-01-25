@@ -9,6 +9,7 @@ export function CreatePostPage() {
   const [action, setAction] = useState<"upload" | "draft" | null>(null);
   const navigate = useNavigate();
   const [titleCount, setTitleCount] = useState(0);
+  const titleLength = 200;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,15 +56,22 @@ export function CreatePostPage() {
           Title
           <textarea
             name="title"
-            maxLength={300}
+            maxLength={titleLength}
             onChange={(e) => setTitleCount(e.target.value.length)}
             rows={1}
+            className={styles.titleTextarea}
           />
-          <p className={styles.titleCount}>{titleCount}/300</p>
+          <p className={styles.titleCount}>
+            {titleCount}/{titleLength}
+          </p>
         </label>
         <label>
           Content
-          <textarea name="content" rows={4}></textarea>
+          <textarea
+            name="content"
+            rows={4}
+            className={styles.contentTextarea}
+          ></textarea>
         </label>
         <div className={styles.info}>
           <div className={styles.error}>{error}</div>

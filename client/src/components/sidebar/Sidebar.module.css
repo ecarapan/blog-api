@@ -2,7 +2,7 @@
   background-color: rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 20px;
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
@@ -14,6 +14,7 @@
 
 .selected {
   background-color: rgb(219, 219, 255);
+  border-radius: 10px;
 }
 
 .closed {
@@ -24,32 +25,28 @@
   height: 25px;
 }
 
-.sidebar ul {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.sidebar li {
+  list-style: none;
+  color: black;
 }
 
-.sidebar li {
+.link:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.link:active {
+  background-color: rgb(219, 219, 255);
+}
+
+.link {
+  text-decoration: none;
+  color: black;
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 15px;
   padding: 10px;
   border-radius: 10px;
-  text-decoration: none;
-  color: black;
-}
-
-.sidebar li:hover {
-  background-color: rgb(241, 241, 255);
-}
-
-.sidebar li:active {
-  background-color: rgb(219, 219, 255);
-}
-
-.link {
   text-decoration: none;
   color: black;
 }
