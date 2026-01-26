@@ -1,37 +1,37 @@
 import styles from "@/components/comment/Comment.module.css";
 import { Link } from "react-router";
-import { useFetch } from "@/hooks/useFetch";
-import type { User } from "@/pages/userPage/UserPage";
 import { formatDate } from "@/util/formatDate";
-
-const API_BASE = import.meta.env.VITE_API_BASE;
+import commentIcon from "@/assets/comment-outline.svg";
 
 interface CommentProps {
   userId: number;
+  name: string;
+  email: string;
   content: string;
   date: string;
 }
 
-export function Comment({ userId, content, date }: CommentProps) {
-  const {
-    data: user,
-    loading: userLoading,
-    error: userError,
-  } = useFetch<User>(`${API_BASE}/users/${userId}`);
-
+export function Comment({ userId, name, email, content, date }: CommentProps) {
   return (
     <article className={styles.comment}>
-      {userLoading && <div className={styles.loadingSpinner}></div>}
-      {userError && <div className={styles.errorSpinner}>{userError}</div>}
-      {user && (
-        <>
-          <Link to={`/users/${user.id}`} className={styles.commentToUserBtn}>
-            {user.name}
-          </Link>
-          <p>{content}</p>
+      <Link to={`/users/${userId}`} className={styles.commentToUserBtn}>
+        <div className={styles.userIcon}>{name[0].toUpperCase()}</div>
+        <div>
+          <p>
+            {name} ({email})
+          </p>
           <p>{formatDate(date)}</p>
-        </>
-      )}
+        </div>
+      </Link>
+      <div className={styles.content}>
+        <p>{content}</p>
+        <div className={styles.actions}>
+          <button className={styles.commentsBtn}>
+            <img src={commentIcon} />
+            Reply
+          </button>
+        </div>
+      </div>
     </article>
   );
 }

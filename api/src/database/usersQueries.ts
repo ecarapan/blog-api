@@ -1,6 +1,5 @@
 import { pool } from "./setup/pool.js";
 
-// Get a user and their posts
 export async function getUserQuery(userId: number) {
   const { rows: userRows } = await pool.query(
     `SELECT * FROM users WHERE id = $1`,
@@ -20,7 +19,6 @@ export async function getUserQuery(userId: number) {
   };
 }
 
-// Get all posts for a user
 export async function getUserPostsQuery(userId: number) {
   const { rows } = await pool.query(`SELECT * FROM posts WHERE user_id = $1`, [
     userId,
@@ -28,7 +26,6 @@ export async function getUserPostsQuery(userId: number) {
   return rows;
 }
 
-// Get a user by email
 export async function getUserByEmailQuery(email: string) {
   const { rows } = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
@@ -36,7 +33,6 @@ export async function getUserByEmailQuery(email: string) {
   return rows[0] || null;
 }
 
-// Create a user and return id, name, email
 export async function createUserQuery(
   name: string,
   email: string,

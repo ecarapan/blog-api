@@ -76,11 +76,11 @@ export function CreatePostPage() {
         <div className={styles.info}>
           <div className={styles.error}>{error}</div>
           <div className={styles.actions}>
-            <button type="submit" onClick={() => setAction("upload")}>
-              Post
-            </button>
             <button type="submit" onClick={() => setAction("draft")}>
               Save as Draft
+            </button>
+            <button type="submit" onClick={() => setAction("upload")}>
+              Post
             </button>
           </div>
         </div>

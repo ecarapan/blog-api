@@ -1,0 +1,131 @@
+.postPage {
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  flex: 1;
+}
+
+.contentWrapper {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.1);
+}
+
+.postContent {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-right: 0px;
+}
+
+.postPage h1 {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.postPage main {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.1);
+  padding: 20px 40px;
+  border-radius: 20px;
+}
+
+.postToUserBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: black;
+  align-self: flex-start;
+  padding: 5px 20px 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgb(214, 214, 214);
+}
+
+.userIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: blue;
+  color: white;
+  font-size: 20px;
+  border-radius: 999px;
+  font-weight: bold;
+  border: none;
+}
+
+.commentsBtn img {
+  height: 20px;
+}
+
+.commentsBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  background-color: rgb(241, 241, 255);
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px 10px 10px;
+  align-self: flex-start;
+  border: none;
+}
+
+.commentsBtn:active {
+  background-color: rgb(219, 219, 255);
+}
+
+.postPage section {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 20px 40px;
+}
+
+.addCommentDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commentTextarea {
+  resize: vertical;
+  border-radius: 10px;
+  padding: 5px 10px;
+  border: 1px solid rgb(214, 214, 214);
+  min-height: 35px;
+  max-height: 500px;
+  background: none;
+}
+
+.commentActions {
+  display: flex;
+  gap: 10px;
+}
+
+.commentActions button {
+  background-color: blue;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: none;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  color: red;
+}

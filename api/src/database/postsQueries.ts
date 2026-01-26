@@ -1,6 +1,6 @@
 import { pool } from "./setup/pool.js";
+import { getCommentsQuery } from "./commentsQueries.js";
 
-// Get all posted posts with comment count
 export async function getPostsQuery() {
   const { rows } = await pool.query(
     `SELECT posts.id, posts.title, posts.content, COUNT(comments.id) AS comments_count
@@ -13,7 +13,6 @@ export async function getPostsQuery() {
   return rows;
 }
 
-// Get all drafts
 export async function getDraftsQuery() {
   const { rows } = await pool.query(
     `SELECT * FROM posts WHERE is_posted = false`,
@@ -21,12 +20,11 @@ export async function getDraftsQuery() {
   return rows;
 }
 
-// Get a single post with user info and comments
 export async function getPostQuery(postId: number) {
-  // Get the post and user info
   const { rows: postRows } = await pool.query(
     `SELECT posts.id, posts.title, posts.content, posts.date,
-            users.id AS user_id, users.name AS user_name
+            users.id AS user_id, users.name AS user_name, users.email as user_email,
+            (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) AS comments_count
      FROM posts
      INNER JOIN users ON posts.user_id = users.id
      WHERE posts.id = $1`,
@@ -35,16 +33,7 @@ export async function getPostQuery(postId: number) {
   const post = postRows[0];
   if (!post) return null;
 
-  // Get comments with user info
-  const { rows: comments } = await pool.query(
-    `SELECT comments.id, comments.content, comments.date,
-            users.id AS user_id, users.name AS user_name
-     FROM comments
-     INNER JOIN users ON comments.user_id = users.id
-     WHERE comments.post_id = $1
-     ORDER BY comments.date ASC`,
-    [postId],
-  );
+  const comments = await getCommentsQuery(postId);
 
   return {
     id: post.id,
@@ -54,20 +43,13 @@ export async function getPostQuery(postId: number) {
     user: {
       id: post.user_id,
       name: post.user_name,
+      email: post.user_email,
     },
-    comments: comments.map((c) => ({
-      id: c.id,
-      content: c.content,
-      date: c.date,
-      user: {
-        id: c.user_id,
-        name: c.user_name,
-      },
-    })),
+    comments_count: post.comments_count,
+    comments,
   };
 }
 
-// Create a post and return the inserted row
 export async function createPostQuery(
   title: string,
   content: string,

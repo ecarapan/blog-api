@@ -1,0 +1,78 @@
+.comment {
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commentToUserBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: black;
+  padding: 5px 20px 5px 10px;
+  border-radius: 999px;
+  /* border: 1px solid rgb(214, 214, 214); */
+  align-self: flex-start;
+}
+
+.commentToUserBtn:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.commentToUserBtn:active {
+  background-color: rgb(219, 219, 255);
+}
+
+.userIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: blue;
+  color: white;
+  font-size: 20px;
+  border-radius: 999px;
+  font-weight: bold;
+  border: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 55px;
+  gap: 5px;
+}
+
+.content p {
+  margin-left: 10px;
+}
+
+.commentsBtn img {
+  height: 20px;
+}
+
+.commentsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 999px;
+  background: none;
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px 10px 10px;
+  align-self: flex-start;
+  border: none;
+}
+
+.commentsBtn:hover {
+  background-color: rgb(241, 241, 255);
+}
+
+.commentsBtn:active {
+  background-color: rgb(219, 219, 255);
+}

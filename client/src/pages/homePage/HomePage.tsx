@@ -26,15 +26,13 @@ export function HomePage() {
       {postsError && <h2 className={styles.errorSpinner}>{postsError}</h2>}
       {postsList &&
         postsList.map((post) => (
-          <>
-            <Post
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              content={post.content}
-              commentsCount={post.comments_count}
-            />
-          </>
+          <Post
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            content={post.content}
+            commentsCount={post.comments_count}
+          />
         ))}
     </main>
   );

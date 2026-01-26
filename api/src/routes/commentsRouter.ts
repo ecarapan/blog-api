@@ -4,9 +4,19 @@ import {
   createComment,
 } from "../controllers/commentsController.js";
 import { verifyToken } from "../middleware/verifyToken.js";
+import {
+  createCommentValidationRules,
+  validate,
+} from "../middleware/createCommentValidation.js";
 
-export const commentsRouter = Router();
+export const commentsRouter = Router({ mergeParams: true });
 
 commentsRouter.get("/", getComments);
 
-commentsRouter.post("/", verifyToken, createComment);
+commentsRouter.post(
+  "/",
+  verifyToken,
+  createCommentValidationRules,
+  validate,
+  createComment,
+);
